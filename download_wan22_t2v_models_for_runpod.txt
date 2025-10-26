@@ -1,0 +1,105 @@
+import os
+import urllib.request
+from pathlib import Path
+
+# Base directory for ComfyUI models
+BASE_DIR = "/workspace/ComfyUI/models"
+
+# Model files to download with their paths and URLs
+models = [
+    {
+        "category": "text_encoders",
+        "filename": "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+        "url": "https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors"
+    },
+    {
+        "category": "vae",
+        "filename": "wan_2.1_vae.safetensors",
+        "url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/vae/wan_2.1_vae.safetensors"
+    },
+    {
+        "category": "diffusion_models",
+        "filename": "wan2.2_t2v_low_noise_14B_fp8_scaled.safetensors",
+        "url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/diffusion_models/wan2.2_t2v_low_noise_14B_fp8_scaled.safetensors"
+    },
+    {
+        "category": "diffusion_models",
+        "filename": "wan2.2_t2v_high_noise_14B_fp8_scaled.safetensors",
+        "url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/diffusion_models/wan2.2_t2v_high_noise_14B_fp8_scaled.safetensors"
+    },
+    {
+        "category": "loras",
+        "filename": "wan2.2_t2v_lightx2v_4steps_lora_v1.1_high_noise.safetensors",
+        "url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/loras/wan2.2_t2v_lightx2v_4steps_lora_v1.1_high_noise.safetensors"
+    },
+    {
+        "category": "loras",
+        "filename": "wan2.2_t2v_lightx2v_4steps_lora_v1.1_low_noise.safetensors",
+        "url": "https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/loras/wan2.2_t2v_lightx2v_4steps_lora_v1.1_low_noise.safetensors"
+    }
+]
+
+def download_file(url, dest_path):
+    """Download a file with progress reporting"""
+    print(f"\nDownloading: {os.path.basename(dest_path)}")
+    print(f"URL: {url}")
+    
+    def progress_hook(count, block_size, total_size):
+        percent = int(count * block_size * 100 / total_size)
+        downloaded = count * block_size / (1024 * 1024)  # MB
+        total = total_size / (1024 * 1024)  # MB
+        print(f"\rProgress: {percent}% ({downloaded:.1f}/{total:.1f} MB)", end='')
+    
+    try:
+        urllib.request.urlretrieve(url, dest_path, progress_hook)
+        print(f"\n✓ Successfully downloaded to: {dest_path}")
+        return True
+    except Exception as e:
+        print(f"\n✗ Error downloading: {e}")
+        return False
+
+def main():
+    print("=" * 70)
+    print("Wan 2.2 Model Downloader for ComfyUI")
+    print("=" * 70)
+    
+    # Create directories and download files
+    success_count = 0
+    fail_count = 0
+    
+    for model in models:
+        # Create directory path
+        dir_path = os.path.join(BASE_DIR, model["category"])
+        os.makedirs(dir_path, exist_ok=True)
+        print(f"\n📁 Directory: {dir_path}")
+        
+        # Full file path
+        file_path = os.path.join(dir_path, model["filename"])
+        
+        # Check if file already exists
+        if os.path.exists(file_path):
+            file_size = os.path.getsize(file_path) / (1024 * 1024)  # MB
+            print(f"⚠ File already exists ({file_size:.1f} MB): {model['filename']}")
+            user_input = input("Skip download? (y/n): ").lower()
+            if user_input == 'y':
+                print("Skipped.")
+                success_count += 1
+                continue
+        
+        # Download the file
+        if download_file(model["url"], file_path):
+            success_count += 1
+        else:
+            fail_count += 1
+    
+    # Summary
+    print("\n" + "=" * 70)
+    print("Download Summary")
+    print("=" * 70)
+    print(f"✓ Successfully downloaded: {success_count}")
+    print(f"✗ Failed: {fail_count}")
+    print(f"Total files: {len(models)}")
+    print("\nAll models are ready for ComfyUI!")
+
+if __name__ == "__main__":
+    main()
