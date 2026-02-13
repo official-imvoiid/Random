@@ -1,2 +1,48 @@
-give max 20 to 25 questions covering all topic and subtopics from 10 marks to 5 marks to 2 marks
-yes now give me all of these answer in 10 marks 10 points + 5marks 5 points + 2 marks 2 points + start with deception and every point has its own short deception include tables or diagrams via ascii
+Create a complete exam-oriented question bank and answers based on the given subject.
+
+📌 Part 1 – Question Paper Creation
+Generate 20–25 questions total.
+Cover all major topics and subtopics of the syllabus.
+
+Distribute questions as:
+10-mark questions
+5-mark questions
+2-mark questions
+Ensure balanced coverage across theory, concepts, definitions, comparisons, applications, and examples.
+
+📌 Part 2 – Answer Writing Format
+For every question:
+
+If it is a 10-mark question → Provide:
+Exactly 10 well-structured points
+Each point must:
+Start with a clear short definition or explanation
+Contain 3–4 meaningful lines
+Include only necessary and relevant content
+
+If it is a 5-mark question → Provide:
+Exactly 5 structured points
+Same formatting rules as above
+If it is a 2-mark question → Provide:
+Exactly 2 concise but complete points
+
+Clear explanation, not one-liners
+
+📌 Formatting Rules
+Start every answer with a brief introduction (definition/description) of the topic.
+
+Every point must:
+Begin with a mini definition or explanation
+Be clear, exam-ready, and structured
+Avoid overly short or unnecessarily long explanations
+
+For comparison-based questions:
+Use well-formatted tables
+Highlight differences clearly and concisely
+
+Maintain:
+Professional tone
+Clean structure
+Logical flow
+
+Exam-focused writing
