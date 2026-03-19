@@ -29,7 +29,7 @@ Exactly 2 concise but complete points
 Clear explanation, not one-liners
 
 📌 Formatting Rules
-Start every answer with a brief introduction (definition/description) of the topic.
+Start every answer with a brief introduction (definition/description) of the topic
 
 Every point must:
 Begin with a mini definition or explanation
