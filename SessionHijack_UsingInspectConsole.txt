@@ -1,0 +1,25 @@
+const cookiesText = `
+# Paste Netscape Cookie Here
+
+`;  
+
+function setCookiesFromNetscape(text) {
+  const lines = text.split('\n');
+  lines.forEach(line => {
+    let originalLine = line;
+    if (line.trim() === '' || line.startsWith('# ') || line.startsWith('#Netscape') || line.startsWith('#http')) return;  // Skip non-cookie comments
+    if (line.startsWith('#HttpOnly_')) {
+      line = line.substring('#HttpOnly_'.length);  // Strip prefix, parse as normal (can't set HttpOnly flag via JS)
+    }
+    const parts = line.split('\t');
+    if (parts.length < 7) return;  // Invalid line
+    let [domain, tailmatch, path, secure, expiration, name, value] = parts;
+    domain = tailmatch.toUpperCase() === 'TRUE' && !domain.startsWith('.') ? `.${domain}` : domain;
+    const expires = parseInt(expiration, 10) > 0 ? `expires=${new Date(parseInt(expiration, 10) * 1000).toUTCString()};` : '';
+    const secureFlag = secure.toUpperCase() === 'TRUE' ? 'secure;' : '';
+    document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; domain=${domain}; path=${path}; ${expires} ${secureFlag}`;
+  });
+  console.log('Cookies set successfully (without HttpOnly flag). Refresh the page to apply.');
+}
+
+setCookiesFromNetscape(cookiesText);
