@@ -81,7 +81,6 @@ Kurusaki, A girl with red and yellow heterochromia eyes, black uneven twintails,
 |---|---|
 | Network Dim (Rank) | `32` |
 | Network Alpha | `32` |
-| Train DiT Only (Freeze Text Encoder) | `True` |
 | Network Dropout | `0` |
 | Auto-resume from Last Saved State | `True` |
 
@@ -115,7 +114,7 @@ Kurusaki, A girl with red and yellow heterochromia eyes, black uneven twintails,
 | Text Encoder LR | `0` |
 | Optimizer | `PagedAdamW8bit` |
 | LR Scheduler | `Cosine` |
-| LR Warmup Steps | `0` |
+| LR Warmup Steps | `500` |
 | Weight Decay | `0.01` |
 | Seed | `42` |
 | Mixed Precision | `BFloat16` |
