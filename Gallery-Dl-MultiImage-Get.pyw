@@ -1,4 +1,4 @@
-# Install Modules By: pip install PyQt6 PyQt6-WebEngine
+# Install Modules By: pip install -U gallery-dl PyQt6 PyQt6-WebEngine
 
 # import Packages
 import sys, os
