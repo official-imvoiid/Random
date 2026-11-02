@@ -1,0 +1,27 @@
+I have attached study material (PDFs/notes) and a previous-year question paper (PYQ image/PDF) for my subject. Read ALL attached files in detail first, including tables, code and images inside them.
+
+Create a Word (.docx) exam-oriented question bank WITH answers.
+
+QUESTIONS
+- 20-25 questions in total, covering every major topic and subtopic in the attached material.
+- Match the style and wording of the PYQ (query writing, "explain with example", scenario-based design/analysis questions). Change the tables/scenarios so they are not copied word for word.
+- Mix of 2-mark, 5-mark and 10-mark questions (about 10 / 8 / 6). Balance theory, definitions, comparisons, applications and examples.
+
+LAYOUT (keep it simple and plain)
+- Black and white only: no cover page, no colour boxes, no shading, no extra tables or summaries.
+- Show "Part A - 2 Marks", "Part B - 5 Marks", "Part C - 10 Marks" as headings ONCE each. Do not write the marks next to individual questions.
+- Under each part, write each question followed immediately by its answer (question first, answer right below it).
+
+ANSWER FORMAT
+- Start every answer with a one or two line "Introduction:" giving a definition or description of the topic.
+- Then use bullet points (dots), not numbers.
+- 10-mark answer: exactly 10 bullets. 5-mark answer: exactly 5 bullets. 2-mark answer: exactly 2 bullets.
+- Every bullet starts with a bold mini-heading or definition, followed by a clear explanation of 3-4 lines (2-mark bullets can be 2-3 lines). No one-liners and no padding.
+- Comparison or "differentiate" questions: answer with a clean table of differences (one row per point), plus a short example if useful.
+- Code or query questions: include the code in a simple grey code block with a short explanation of what it does and the expected output.
+- Add a neat diagram only where it really helps (for example flow, process or relationship diagrams). Skip diagrams otherwise.
+- Use a professional, exam-ready tone and a logical flow.
+
+OUTPUT
+- One .docx file. Check the rendered pages for layout problems before giving it to me.
+- Use only what is in the material plus standard textbook knowledge. If the syllabus is unclear, tell me what you assumed.
