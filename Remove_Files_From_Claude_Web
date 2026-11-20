@@ -1,0 +1,73 @@
+# Paste this script in https://claude.ai/new#settings/data-privacy-controls/uploaded-files -> console
+# As if today there is no remove all files button and i arent doing this manully, wasting my gem time in this thousands slob files removal 
+# Note: check it time to time as this script sometimes fales if left as it is, i avent wasted much time on all test cases for me it works it removes all files from claude
+
+(async () => {
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  const visible = el => el.getClientRects().length > 0;
+
+  const waitFor = async (fn, timeout = 5000, step = 10) => {
+    const end = Date.now() + timeout;
+    while (Date.now() < end) {
+      const v = fn();
+      if (v) return v;
+      await sleep(step);
+    }
+    return null;
+  };
+
+  // any table row that has at least one button (the trash icon)
+  const rows = () => [...document.querySelectorAll('tbody tr')]
+    .filter(r => r.querySelector('button, [role="button"]'));
+  const loadMoreBtn = () => [...document.querySelectorAll('button')]
+    .find(b => visible(b) && /load more|show more/i.test(b.textContent) && !b.disabled);
+  const confirmBtn = () => [...document.querySelectorAll('button')]
+    .filter(b => visible(b) && b.textContent.trim() === 'Delete').pop();
+
+  let count = 0, fails = 0;
+
+  while (true) {
+    const list = rows();
+
+    // no rows: try to load more, otherwise we're done
+    if (!list.length) {
+      const more = loadMoreBtn();
+      if (!more) break;
+      more.click();
+      await waitFor(() => rows().length > 0 || !loadMoreBtn(), 10000);
+      if (!rows().length && !loadMoreBtn()) break;
+      continue;
+    }
+
+    const row = list[0];
+    const before = row.textContent.trim();
+    const btns = [...row.querySelectorAll('button, [role="button"]')];
+    const trash = btns[btns.length - 1];
+
+    trash.click();
+    const c = await waitFor(confirmBtn, 3000);
+    if (!c) {
+      if (++fails >= 20) { console.log('Stuck: confirm button never appeared'); break; }
+      await sleep(300);
+      continue;
+    }
+    c.click();
+
+    const gone = await waitFor(() => {
+      const r = rows()[0];
+      return !r || r.textContent.trim() !== before;
+    }, 8000);
+
+    if (gone) {
+      count++;
+      fails = 0;
+      if (count % 10 === 0) console.log('Deleted', count);
+    } else if (++fails >= 20) {
+      console.log('Stuck: row did not disappear:', before.slice(0, 60));
+      break;
+    } else {
+      await sleep(500); // transient error or rate limit, retry
+    }
+  }
+  console.log('Done. Deleted', count, 'files');
+})();
